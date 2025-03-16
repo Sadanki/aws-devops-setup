@@ -136,4 +136,90 @@ exit  # To disconnect from EC2
 ## ✅ Task 1 Completed! 🎉  
 This completes the **System Monitoring Setup**. 🚀  
 
-Let me know if you need any modifications!
+# 🚀 **Task 2: User Management & Access Control**  
+
+## 🔥 **Mission Brief**  
+Welcome to **Task 2**, where we transform an open system into a **secure and structured workspace**! Your challenge? **Onboard new developers, lock down access, and enforce security policies** to maintain a rock-solid environment.  
+
+👥 **New Users**: Sarah & Mike  
+📂 **Goal**: Assign them **isolated, secure workspaces**  
+🔐 **Security Focus**: Strong passwords & controlled access  
+
+---
+
+## 🛠️ **Deployment Steps**  
+
+### 🎯 **1️⃣ Creating User Accounts**  
+First, let’s create **Sarah** and **Mike** as system users:  
+```bash
+sudo useradd -m -c "Sarah Tessera, Developer" -s /bin/bash sarah  
+sudo useradd -m -c "Mike Alam, Developer" -s /bin/bash mike  
+```
+🔥 **Set secure passwords:**  
+```bash
+sudo passwd sarah  
+sudo passwd mike  
+```
+
+---
+
+### 📂 **2️⃣ Setting Up Secure Workspaces**  
+Each developer needs a private **workspace** to keep their work secure.  
+```bash
+sudo mkdir -p /home/sarah/workspace  
+sudo mkdir -p /home/mike/workspace  
+```
+Assign ownership to the respective users:  
+```bash
+sudo chown sarah:sarah /home/sarah/workspace  
+sudo chown mike:mike /home/mike/workspace  
+```
+🚧 **Locking down access** (only the owner can access their directory):  
+```bash
+sudo chmod 700 /home/sarah/workspace  
+sudo chmod 700 /home/mike/workspace  
+```
+
+---
+
+### 🔐 **3️⃣ Enforcing a Strong Password Policy**  
+To maintain security, enforce **password complexity and expiration rules**:  
+
+Edit **password policy configuration**:  
+```bash
+sudo nano /etc/security/pwquality.conf
+```
+Add or modify the following lines:  
+```
+minlen = 12        # Minimum password length  
+dcredit = -1       # At least one digit  
+ucredit = -1       # At least one uppercase letter  
+lcredit = -1       # At least one lowercase letter  
+ocredit = -1       # At least one special character  
+retry = 3          # Allow 3 retries before failure  
+```
+💾 **Save and exit** (`CTRL + X → Y → ENTER`)
+
+---
+
+### 🔄 **4️⃣ Setting Password Expiration Rules**  
+Ensure passwords **expire every 30 days**:  
+```bash
+sudo chage -M 30 sarah  
+sudo chage -M 30 mike  
+```
+Check expiration settings:  
+```bash
+sudo chage -l sarah  
+sudo chage -l mike  
+```
+
+---
+
+## ✅ **Mission Accomplished!**  
+🎯 **Sarah and Mike now have:**  
+✔️ **Secure accounts**  
+✔️ **Private workspaces**  
+✔️ **Strong password policies**  
+
+🔒 **Security is not an option—it's a necessity!** 🚀
