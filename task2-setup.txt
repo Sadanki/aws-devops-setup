@@ -1,0 +1,4 @@
+Task 2: User Management and Access Control
+- Created users Sarah and Mike
+- Set up home directories with proper permissions
+- Configured password policies
