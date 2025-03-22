@@ -1,0 +1,18 @@
+Task 3: Backup Configuration for Web Servers
+
+Objective:
+Automate backups for Apache (Sarah's server) and Nginx (Mike's server).
+
+Steps:
+1. Created backup scripts:
+   - backup_apache.sh (backs up /etc/apache2/ and /var/www/html/)
+   - backup_nginx.sh (backs up /etc/nginx/ and /usr/share/nginx/html/)
+
+2. Scheduled automated backups using cron:
+   - Apache: Runs every Tuesday at 12:00 AM
+   - Nginx: Runs every Tuesday at 12:00 AM
+
+3. Verified backup integrity:
+   - Contents of tar.gz are checked and logged in backup_verification.log
+
+4. Stored backups in `/backups/` with proper naming.

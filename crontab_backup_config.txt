@@ -1,0 +1,2 @@
+0 0 * * 2 /usr/bin/bash /home/ubuntu/aws-webserver-backup/apache_backup.sh
+0 0 * * 2 /usr/bin/bash /home/ubuntu/aws-webserver-backup/nginx_backup.sh
