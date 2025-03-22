@@ -223,3 +223,87 @@ sudo chage -l mike
 ✔️ **Strong password policies**  
 
 🔒 **Security is not an option—it's a necessity!** 🚀
+
+
+
+Here is your README file formatted like the image:
+
+---
+
+# 🚀 Task 3: Backup Configuration for Web Servers  
+
+## 🔥 Mission Brief  
+
+Welcome to **Task 3**, where we ensure **data integrity and recovery** by configuring automated backups for web servers. Your challenge? Implement a **scheduled backup system** to protect critical web server files.  
+
+👩‍💻 **Users:** Sarah & Mike  
+🎯 **Goal:** Automate backups for their respective web servers  
+🔐 **Security Focus:** Reliable, verifiable backups & secure storage  
+
+---  
+
+## 🛠 Deployment Steps  
+
+### 🎯 1. Creating Backup Scripts  
+
+First, let's create **backup scripts** for Sarah’s Apache server and Mike’s Nginx server:  
+
+```
+#!/bin/bash  
+# Apache Backup Script  
+timestamp=$(date +'%Y-%m-%d')  
+tar -czf /backups/apache_backup_$timestamp.tar.gz /etc/httpd/ /var/www/html/  
+```
+
+```
+#!/bin/bash  
+# Nginx Backup Script  
+timestamp=$(date +'%Y-%m-%d')  
+tar -czf /backups/nginx_backup_$timestamp.tar.gz /etc/nginx/ /usr/share/nginx/html/  
+```
+
+Set executable permissions:  
+
+```
+chmod +x apache_backup.sh  
+chmod +x nginx_backup.sh  
+```
+
+---
+
+### ⏰ 2. Scheduling Backups with Cron  
+
+Schedule backups to run **every Tuesday at 12:00 AM** by adding these lines to the crontab (`crontab -e`):  
+
+```
+0 0 * * 2 /path/to/apache_backup.sh >> /var/log/apache_backup.log 2>&1  
+0 0 * * 2 /path/to/nginx_backup.sh >> /var/log/nginx_backup.log 2>&1  
+```
+
+---
+
+### ✅ 3. Verifying Backup Integrity  
+
+After a scheduled backup, check if backup files exist:  
+
+```
+ls -lh /backups/  
+```
+
+Verify the contents of the backup:  
+
+```
+tar -tzf /backups/apache_backup_YYYY-MM-DD.tar.gz  
+tar -tzf /backups/nginx_backup_YYYY-MM-DD.tar.gz  
+```
+
+---
+
+### 📜 Expected Output  
+
+✔️ **Cron job configurations for Sarah and Mike**  
+✔️ **Backup files are created in `/backups/`**  
+✔️ **Verification log showing backup integrity**  
+
+---
+
