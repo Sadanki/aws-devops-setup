@@ -230,6 +230,10 @@ Here is your README file formatted like the image:
 
 ---
 
+Here is the **complete README** for Task 3 in the requested format:
+
+---
+
 # 🚀 Task 3: Backup Configuration for Web Servers  
 
 ## 🔥 Mission Brief  
@@ -240,31 +244,39 @@ Welcome to **Task 3**, where we ensure **data integrity and recovery** by config
 🎯 **Goal:** Automate backups for their respective web servers  
 🔐 **Security Focus:** Reliable, verifiable backups & secure storage  
 
----  
+---
 
 ## 🛠 Deployment Steps  
 
 ### 🎯 1. Creating Backup Scripts  
 
-First, let's create **backup scripts** for Sarah’s Apache server and Mike’s Nginx server:  
+First, let's create **backup scripts** for Sarah’s Apache server and Mike’s Nginx server.  
 
-```
-#!/bin/bash  
-# Apache Backup Script  
-timestamp=$(date +'%Y-%m-%d')  
-tar -czf /backups/apache_backup_$timestamp.tar.gz /etc/httpd/ /var/www/html/  
-```
+📌 **Apache Backup Script:**  
 
-```
-#!/bin/bash  
-# Nginx Backup Script  
-timestamp=$(date +'%Y-%m-%d')  
-tar -czf /backups/nginx_backup_$timestamp.tar.gz /etc/nginx/ /usr/share/nginx/html/  
+```bash
+#!/bin/bash
+# Apache Backup Script
+timestamp=$(date +'%Y-%m-%d')
+backup_file="/backups/apache_backup_$timestamp.tar.gz"
+tar -czf $backup_file /etc/httpd/ /var/www/html/
+echo "Apache backup created: $backup_file" >> /var/log/apache_backup.log
 ```
 
-Set executable permissions:  
+📌 **Nginx Backup Script:**  
 
+```bash
+#!/bin/bash
+# Nginx Backup Script
+timestamp=$(date +'%Y-%m-%d')
+backup_file="/backups/nginx_backup_$timestamp.tar.gz"
+tar -czf $backup_file /etc/nginx/ /usr/share/nginx/html/
+echo "Nginx backup created: $backup_file" >> /var/log/nginx_backup.log
 ```
+
+✅ **Set executable permissions:**  
+
+```bash
 chmod +x apache_backup.sh  
 chmod +x nginx_backup.sh  
 ```
@@ -275,35 +287,70 @@ chmod +x nginx_backup.sh
 
 Schedule backups to run **every Tuesday at 12:00 AM** by adding these lines to the crontab (`crontab -e`):  
 
-```
+```bash
 0 0 * * 2 /path/to/apache_backup.sh >> /var/log/apache_backup.log 2>&1  
 0 0 * * 2 /path/to/nginx_backup.sh >> /var/log/nginx_backup.log 2>&1  
 ```
 
 ---
 
-### ✅ 3. Verifying Backup Integrity  
+### 📂 3. File Naming Convention  
+
+Backup files are saved in the `/backups/` directory using this format:  
+
+```
+apache_backup_YYYY-MM-DD.tar.gz
+nginx_backup_YYYY-MM-DD.tar.gz
+```
+
+**Example:**  
+
+```
+/backups/apache_backup_2025-03-19.tar.gz
+/backups/nginx_backup_2025-03-19.tar.gz
+```
+
+---
+
+### ✅ 4. Verifying Backup Integrity  
 
 After a scheduled backup, check if backup files exist:  
 
-```
+```bash
 ls -lh /backups/  
 ```
 
 Verify the contents of the backup:  
 
-```
+```bash
 tar -tzf /backups/apache_backup_YYYY-MM-DD.tar.gz  
 tar -tzf /backups/nginx_backup_YYYY-MM-DD.tar.gz  
 ```
 
 ---
 
-### 📜 Expected Output  
+### 📜 5. Log Management  
 
-✔️ **Cron job configurations for Sarah and Mike**  
-✔️ **Backup files are created in `/backups/`**  
-✔️ **Verification log showing backup integrity**  
+All backup logs are stored in:  
+
+```
+/var/log/apache_backup.log
+/var/log/nginx_backup.log
+```
+
+To check the latest log entries, run:  
+
+```bash
+tail -f /var/log/apache_backup.log
+tail -f /var/log/nginx_backup.log
+```
 
 ---
 
+## 🎯 Expected Output  
+
+✔️ **Cron job configurations for Sarah and Mike**  
+✔️ **Backup files created in `/backups/`**  
+✔️ **Verification logs confirming successful backups**  
+
+---
